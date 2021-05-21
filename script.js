@@ -1,6 +1,8 @@
 var startButton = document.querySelector(".start-button");
 var timerElement = document.querySelector(".timer-count");
 var questionsDisplay = document.querySelector(".questions-display");
+var questionEl = document.querySelector("#questionEl");
+var answerList = document.querySelector("#answerList");
 
 var isWin = false;
 var timer;
@@ -14,9 +16,20 @@ var questions = [{
         correctAnswer: "pizza"
 }]
 
+
+
 function renderFirstQuestion(){
 
-    question1 = questions
+    var questionCounter = 0;
+    questionEl.textContent=(questions[questionCounter].question);
+
+    
+    for (var i = 0; i < questions[questionCounter].choices.length; i++)
+    {
+        var liChoice = document.createElement("li");
+        liChoice.textContent = questions[questionCounter].choices[i];
+        answerList.appendChild(liChoice);
+    }
 }
 
 // Attach event listener to start button to call startGame function on click
