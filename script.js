@@ -46,11 +46,31 @@ function renderFirstQuestion(){
     }
 }
 
-function checkAnswer(){
+function checkAnswer(event){
         var correctAnswer = questions[questionCounter].correctAnswer
-        console.log(correctAnswer)
+        //console.log(correctAnswer)
+        var userAnswer = event.target.innerText
+        console.log(userAnswer)
 
+        if (userAnswer===correctAnswer){
+            questionEl.innerHTML = "Yes!!!";
+            questionCounter+=1
+            var answerList = document.getElementById("answerList")
+            while (answerList.firstChild) {
+                answerList.removeChild(answerList.firstChild);
+                
+            }
+            renderFirstQuestion()
+        }
+        else {
+            questionEl.innerHTML = "Nope!!!";
+            timerCount -= 10;
+            
+        }
+        
 }
+
+
 
 // Attach event listener to start button to call startGame function on click
 startButton.addEventListener("click", startGame);
@@ -72,7 +92,7 @@ function startTimer() {
       timerCount--;
       timerElement.textContent = timerCount;
       
-      if (timerCount === 0) {
+      if (timerCount <= 0) {
         // Clears interval
         clearInterval(timer);
         endGame();
