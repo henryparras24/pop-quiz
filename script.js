@@ -5,6 +5,7 @@ var answerList = document.querySelector("#answerList");
 var timer;
 var timerCount;
 var questionCounter = 0;
+var gameScore = 0
 
 
 var questions = [{ 
@@ -53,21 +54,29 @@ function checkAnswer(event){
         console.log(userAnswer)
 
         if (userAnswer===correctAnswer){
-            questionEl.innerHTML = "Yes!!!";
-            questionCounter+=1
-            var answerList = document.getElementById("answerList")
-            while (answerList.firstChild) {
-                answerList.removeChild(answerList.firstChild);
-                
-            }
-            renderFirstQuestion()
+            gameScore += 1
+            
         }
         else {
             questionEl.innerHTML = "Nope!!!";
             timerCount -= 10;
             
         }
-        
+        questionCounter+=1
+            var answerList = document.getElementById("answerList")
+            while (answerList.firstChild) {
+                answerList.removeChild(answerList.firstChild);
+                
+            }
+            if(questionCounter===3){
+                endGame()
+
+            }
+            else{
+                renderFirstQuestion()
+
+            }
+            
 }
 
 
@@ -102,7 +111,13 @@ function startTimer() {
 
   function endGame(){
 
-    questionEl.innerHTML = "Quiz is Over!";
-    answerList.innerHTML =
-      "Better luck next time 👍🏼"
+
+    //questionEl.innerHTML = "Quiz is Over!";
+    if (gameScore===3){
+        questionEl.innerHTML = "Perfect score!"
+
+    }
+    else{
+        questionEl.innerHTML = `You scored ${gameScore}/3. Better luck next time! 👍🏼`
+    }
   }
